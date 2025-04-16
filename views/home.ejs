@@ -1,0 +1,59 @@
+<!-- ejs: Dynamically generate HTML on the server side using JavaScript. -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			body {
+				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+			}
+		</style>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home</title>
+	</head>
+	<body>
+		<h1>URL Shorter</h1>
+
+		<div>
+			<form method="POST" action="/url">
+				<label>Enter Your Original URL</label>
+				<input
+					type="text"
+					name="url"
+					placeholder="https://example.com"
+				/>
+				<button type="submit">Generate</button>
+			</form>
+		</div>
+		<% if(locals.id) { %>
+		<p>URL Generated: http://localhost:3001/<%= id %></p>
+		<% } %>
+        <br>
+
+		<div>
+			<% if(locals.urls) { %>
+			<table style="border: 2px solid black">
+				<thead>
+					<th style="border: 2px solid black">S. No</th>
+					<th style="border: 2px solid black">Short ID</th>
+					<th style="border: 2px solid black">Redirect</th>
+					<th style="border: 2px solid black">Clicks</th>
+				</thead>
+				<tbody>
+					<% urls.forEach((url, index)=> { %>
+					<tr>
+						<td style="border: 2px solid black"><%= index + 1 %></td>
+						<td style="border: 2px solid black"><%= url.shortId%></td>
+						<td style="border: 2px solid black"><%= url.redirectURL%></td>
+						<td style="border: 2px solid black"><%= url.visitHistory.length%></td>
+					</tr>
+					<% }) %>
+				</tbody>
+			</table>
+			<% } %>
+		</div>
+	</body>
+</html>
